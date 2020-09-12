@@ -9,6 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
     public function type()
     {
         return $this->belongsTo(Type::class);

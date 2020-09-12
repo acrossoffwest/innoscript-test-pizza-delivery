@@ -21,7 +21,7 @@
                             @endif
                             <div class="col-2"><b>Product</b></div>
                             <div class="col-2"><b>Description</b></div>
-                            <div class="col-2"><b>Weight</b></div>
+                            <div class="col-2"><b>Image</b></div>
                             <div class="col-2"><b></b></div>
                         </div>
                         @forelse($products as $product)
@@ -30,11 +30,15 @@
                                     <div class="col-2">{{ $product->type->name }}</div>
                                 @endif
                                 @if(!isset($category))
-                                    <div class="col-2"><b>{{ \Illuminate\Support\Str::limit($product->category->name, 9) }}</b></div>
+                                    <div class="col-2">{{ \Illuminate\Support\Str::limit($product->category->name, 9) }}</div>
                                 @endif
-                                <div class="col-2">{{ $product->name }}</div>
+                                <div class="col-2"><b>{{ $product->name }}</b></div>
                                 <div class="col-2">{{ \Illuminate\Support\Str::limit($product->description, 10) }}</div>
-                                <div class="col-2">{{ $product->weight }}</div>
+                                <div class="col-2">
+                                    @if($product->image)
+                                        <img src="{{ $product->image->public_path }}" alt="" width="50">
+                                    @endif
+                                </div>
                                 <div class="col-2">
                                     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapse-{{ $product->id }}" aria-expanded="false" aria-controls="collapse-{{ $product->id }}">
                                         Full info
@@ -100,7 +104,7 @@
                             @endif
                             <div class="col-2"><b>Product</b></div>
                             <div class="col-2"><b>Description</b></div>
-                            <div class="col-2"><b>Weight</b></div>
+                            <div class="col-2"><b>Image</b></div>
                             <div class="col-2"><b></b></div>
                         </div>
                     </div>

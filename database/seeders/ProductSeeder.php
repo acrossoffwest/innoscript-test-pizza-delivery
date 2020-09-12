@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Services\ImageService;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Tests\Unit\ImageServiceTest;
 
 class ProductSeeder extends Seeder
 {
@@ -41,8 +43,10 @@ class ProductSeeder extends Seeder
             'Tonno',
         ];
 
+        $imageService = new ImageService();
         foreach ($pizzaNames as $index => $pizzaName) {
             $id = $index + 1;
+            $image = $imageService->getImageModelGeneratedRandomly();
             $this->insertNewProduct($id, [
                 'is_available' => true,
                 'name' => $pizzaName,
@@ -51,7 +55,8 @@ class ProductSeeder extends Seeder
                 'category_id' => rand(1, 3),
                 'description' => $pizzaName.' is pizza. '.$faker->text,
                 'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
-                'cost' => rand(300, 1000)
+                'cost' => rand(300, 1000),
+                'image_id' => $image->id
             ], [
                 1 => $faker->boolean,
                 2 => $faker->boolean,
