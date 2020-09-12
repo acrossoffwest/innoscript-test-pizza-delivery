@@ -20,7 +20,7 @@ class TypeSeeder extends Seeder
             'id' => 1,
             'name' => 'Пицца',
             'slug' => 'pizza',
-            'unit' => 'гр.'
+            'unit' => 'кг'
         ]);
         DB::table('types')->insert([
             'id' => 2,

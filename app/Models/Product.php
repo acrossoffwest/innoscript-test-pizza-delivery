@@ -25,6 +25,16 @@ class Product extends Model
             ->withPivot(['is_default']);
     }
 
+    public function defaultIngredients()
+    {
+        return $this->ingredients()->where('is_default', true);
+    }
+
+    public function extraIngredients()
+    {
+        return $this->ingredients()->where('is_default', false);
+    }
+
     public function options()
     {
         return $this->belongsToMany(ProductOption::class, 'products_product_options')

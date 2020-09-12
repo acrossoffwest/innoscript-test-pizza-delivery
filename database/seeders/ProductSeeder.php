@@ -40,7 +40,6 @@ class ProductSeeder extends Seeder
             'Sarda',
             'Tonno',
         ];
-        $doughDepths = ['Тонкое', 'Толстое'];
 
         foreach ($pizzaNames as $index => $pizzaName) {
             $id = $index + 1;
@@ -50,7 +49,7 @@ class ProductSeeder extends Seeder
                 'slug' => Str::slug($pizzaName),
                 'type_id' => 1,
                 'category_id' => rand(1, 3),
-                'description' => 'Peperoni is pizza',
+                'description' => $pizzaName.' is pizza. '.$faker->text,
                 'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
                 'cost' => rand(300, 1000)
             ], [
@@ -86,14 +85,14 @@ class ProductSeeder extends Seeder
                     'product_option_id' => 2,
                     'is_default' => true,
                     'weight' => 0,
-                    'value' => $doughDepths[rand(0, 1)],
+                    'value' => 'Тонкое',
                     'cost' => 0
                 ],
                 [
                     'product_option_id' => 2,
-                    'is_default' => true,
-                    'weight' => 0.4,
-                    'value' => $doughDepths[rand(0, 1)],
+                    'is_default' => false,
+                    'weight' => floatval(rand(0, 1).'.'.rand(0,9)),
+                    'value' => 'Толстое',
                     'cost' => rand(50, 300)
                 ]
             ]);
@@ -107,7 +106,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert($productData);
         foreach ($ingredientsIds as $ingredientId => $isDefault) {
             DB::table('products_ingredients')->insert([
-                'product_id' => 1,
+                'product_id' => $id,
                 'ingredient_id' => $ingredientId,
                 'is_default' => $isDefault
             ]);

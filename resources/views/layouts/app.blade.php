@@ -47,10 +47,13 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ route('admin.product_options.index') }}">Product options</a>
                                 </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ route('admin.products.index') }}">Products</a>
+                                </li>
                             @endif
-{{--                            <li class="nav-item active">--}}
-{{--                                <a class="nav-link" href="#">Orders</a>--}}
-{{--                            </li>--}}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Orders</a>
+                            </li>
                         @endif
                     </ul>
 
