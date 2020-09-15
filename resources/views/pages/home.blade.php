@@ -17,18 +17,20 @@
                         </div>
                         <div class="flex item-center justify-between mt-3">
                             <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600" v-html="$store.getters.items[{!! $product->id !!}].count"></span></span></h1>
-                            <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }})">+</button>
-                            <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }})">-</button>
+                            <div>
+                                <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }})">-</button>
+                                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }})">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <modal ref="product-{{ $product->id }}">
-                <template #header>{{ $product->name }}</template>
+                <template #header><h2 class="text-gray-900 font-bold text-2xl">{{ $product->name }}</h2></template>
                 <template #body>
                     <div class="block" style="min-height: 30vh">
                         <img src="{{ $product->image->publicPath }}" class="w-full" alt="">
-                        <p class="">
+                        <p class="mt-5">
                             {{ $product->description }}
                         </p>
                         <p>
@@ -37,11 +39,14 @@
                     </div>
                 </template>
                 <template #footer>
-                    <div class="flex item-center justify-between mt-3" :key="updateDetailedCounts">
-                        <div class="flex">
+                    <div class="flex justify-between mt-3" :key="updateDetailedCounts">
+                        <div class="flex justify-between w-1/4">
                             <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600" v-html="$store.getters.items[{!! $product->id !!}].count"></span></span></h1>
-                            <button class="px-3 ml-5  py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
-                            <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 ml-2 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
+
+                            <div class="ml-5">
+                                <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
+                                <button class="px-3 ml-0  py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
+                            </div>
                         </div>
                         <div>
                             <button class="px-3 py-2 bg-gray-400 text-white text-xs font-bold uppercase rounded" @click="$refs['product-{{ $product->id }}'].$emit('toggle')">Close</button>
