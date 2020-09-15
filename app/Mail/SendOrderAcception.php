@@ -30,7 +30,7 @@ class SendOrderAcception extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@m.aow.space')
+        return $this->subject('You order accepted')->from('noreply@m.aow.space')
             ->view('emails.order_acception')
             ->with('orderLink', $this->orderLink);
     }

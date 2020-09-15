@@ -30,7 +30,7 @@ class SendOrderCreated extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@m.aow.space')
+        return $this->subject('You order created')->from('noreply@m.aow.space')
             ->view('emails.order_created')
             ->with('orderLink', $this->orderLink);
     }

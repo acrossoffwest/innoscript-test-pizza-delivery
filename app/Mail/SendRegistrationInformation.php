@@ -31,7 +31,7 @@ class SendRegistrationInformation extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@m.aow.space')
+        return $this->subject('You registration information')->from('noreply@m.aow.space')
             ->view('emails.reg_info')
             ->with('email', $this->email)
             ->with('password', $this->password);
