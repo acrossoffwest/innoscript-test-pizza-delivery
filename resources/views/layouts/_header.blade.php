@@ -40,7 +40,7 @@
             </nav>
             <div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
                 <a v-if="cartItemsCount" href="{{ route('cart') }}" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
-                    Cart (@{{ cartItemsCount }})
+                    Cart <span v-html="`(${cartItemsCount})`"></span>
                 </a>
                 <span>|</span>
                 @guest

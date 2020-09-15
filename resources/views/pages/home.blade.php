@@ -16,7 +16,7 @@
                             {{ str_limit(implode(', ', $product->defaultIngredients->pluck('name')->all()), 15) }}
                         </div>
                         <div class="flex item-center justify-between mt-3">
-                            <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600">@{{ $store.getters.items[{!! $product->id !!}].count }}</span></span></h1>
+                            <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600" v-html="$store.getters.items[{!! $product->id !!}].count"></span></span></h1>
                             <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }})">+</button>
                             <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }})">-</button>
                         </div>
@@ -39,7 +39,7 @@
                 <template #footer>
                     <div class="flex item-center justify-between mt-3" :key="updateDetailedCounts">
                         <div class="flex">
-                            <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600">@{{ $store.getters.items[{!! $product->id !!}].count }}</span></span></h1>
+                            <h1 class="text-gray-700 font-bold text-xl">{{ $product->cost }}$ <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600" v-html="$store.getters.items[{!! $product->id !!}].count"></span></span></h1>
                             <button class="px-3 ml-5  py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
                             <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 ml-2 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
                         </div>
