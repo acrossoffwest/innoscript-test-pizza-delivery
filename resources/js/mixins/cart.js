@@ -27,11 +27,12 @@ export default {
                 this.$store.commit('updateItem', data)
             })
         },
-        clearCart(force = false) {
+        clearCart(force, redirectToHome) {
             if (force) {
                 this.$store.commit('clearCart')
                 return
             }
+
             this.$swal({
                 title: 'Do you want clear your cart?',
                 type: 'warning',
@@ -41,12 +42,15 @@ export default {
                 confirmButtonText: 'Yes, clear it!',
                 cancelButtonText: 'No, cancel!',
                 buttonsStyling: true
-            }).then(function (isConfirm) {
+            }).then((isConfirm) => {
                 if(!isConfirm.value) {
                     return
                 }
                 this.$store.commit('clearCart')
                 ++this.updateDetailedCounts
+                if (redirectToHome) {
+                    window.location.href = '/'
+                }
             });
         }
     }

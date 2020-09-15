@@ -2090,8 +2090,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -24831,23 +24829,30 @@ var render = function() {
                       _vm._v(" "),
                       _vm.$store.getters.cartItemsCount
                         ? _c("tr", [
-                            _c("td", { attrs: { colspan: "4" } }),
+                            _c("td", { attrs: { colspan: "3" } }),
                             _vm._v(" "),
-                            _c("td", { staticClass: "text-right" }, [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.clearCart($event)
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-right",
+                                attrs: { colspan: "2" }
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.clearCart(false, true)
+                                      }
                                     }
-                                  }
-                                },
-                                [_vm._v("Clear cart")]
-                              )
-                            ])
+                                  },
+                                  [_vm._v("Clear cart")]
+                                )
+                              ]
+                            )
                           ])
                         : _vm._e()
                     ],
@@ -25077,49 +25082,47 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.order($event)
-                        }
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.order($event)
                       }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "w-8",
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "w-8",
+                        attrs: {
+                          "aria-hidden": "true",
+                          "data-prefix": "far",
+                          "data-icon": "credit-card",
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 576 512"
+                        }
+                      },
+                      [
+                        _c("path", {
                           attrs: {
-                            "aria-hidden": "true",
-                            "data-prefix": "far",
-                            "data-icon": "credit-card",
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 576 512"
+                            fill: "currentColor",
+                            d:
+                              "M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"
                           }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              fill: "currentColor",
-                              d:
-                                "M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-2 mt-5px" }, [
-                        _vm._v("ORDER")
-                      ])
-                    ]
-                  )
-                ])
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2 mt-5px" }, [
+                      _vm._v("ORDER")
+                    ])
+                  ]
+                )
               ])
             ])
           ])
@@ -39521,8 +39524,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    clearCart: function clearCart() {
-      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    clearCart: function clearCart(force, redirectToHome) {
+      var _this2 = this;
 
       if (force) {
         this.$store.commit('clearCart');
@@ -39543,8 +39546,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return;
         }
 
-        this.$store.commit('clearCart');
-        ++this.updateDetailedCounts;
+        _this2.$store.commit('clearCart');
+
+        ++_this2.updateDetailedCounts;
+
+        if (redirectToHome) {
+          window.location.href = '/';
+        }
       });
     }
   }
@@ -39760,8 +39768,8 @@ if (!storage.get('currentCurrency')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/acrossoffwest/Documents/Projects/innascripta-test-pizza/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/acrossoffwest/Documents/Projects/innascripta-test-pizza/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! /home/acrossoffwest/Documents/Projects/innoscripta-test-pizza/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/acrossoffwest/Documents/Projects/innoscripta-test-pizza/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })
