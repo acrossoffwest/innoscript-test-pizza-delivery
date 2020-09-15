@@ -29,15 +29,25 @@
                                 {{ $item->count }}
                             </td>
                             <td class="py-4 px-6 border-b border-grey-light">
-                                {{ $item->cost }}
+                                {{ $item->cost }} <span v-html="getCurrencySymbol('{{ $order->currency }}')"></span>
                             </td>
                             <td class="py-4 px-6 border-b border-grey-light">
-                                {{ $item->cost * $item->count }}
+                                {{ $item->cost * $item->count }} <span v-html="getCurrencySymbol('{{ $order->currency }}')"></span>
                             </td>
                         </tr>
                     @empty
                         <div class="row">You don't have items</div>
                     @endforelse
+                    @if($order)
+                        <tr class="hover:bg-grey-lighter">
+                            <td colspan="2" class="py-4 px-6 border-b border-grey-light">
+                                <b>Delivery cost:</b> {{ $order->delivery_cost }} <span v-html="getCurrencySymbol('{{ $order->currency }}')"></span>
+                            </td>
+                            <td  colspan="2" class="py-4 px-6 border-b border-grey-light">
+                                <b>Total cost:</b> {{ $order->total_cost }} <span v-html="getCurrencySymbol('{{ $order->currency }}')"></span>
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

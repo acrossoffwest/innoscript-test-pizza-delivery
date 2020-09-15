@@ -27,7 +27,11 @@ export default {
                 this.$store.commit('updateItem', data)
             })
         },
-        clearCart() {
+        clearCart(force = false) {
+            if (force) {
+                this.$store.commit('clearCart')
+                return
+            }
             this.$swal({
                 title: 'Do you want clear your cart?',
                 type: 'warning',

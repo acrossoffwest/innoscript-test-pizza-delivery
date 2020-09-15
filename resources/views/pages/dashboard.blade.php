@@ -48,7 +48,7 @@
                         {{ ucfirst($order->status) }}
                     </td>
                     <td class="py-4 px-6 border-b border-grey-light">
-                        {{ $order->total_cost }}
+                        {{ $order->total_cost }} <span v-html="getCurrencySymbol('{{ $order->currency }}')"></span>
                     </td>
                 </tr>
             @empty

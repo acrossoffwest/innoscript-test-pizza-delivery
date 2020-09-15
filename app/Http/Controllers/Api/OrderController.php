@@ -23,9 +23,11 @@ class OrderController extends Controller
     {
         [
             'contact_info' => $contactInfo,
-            'items' => $items
+            'items' => $items,
+            'note' => $note,
+            'currency' => $currency,
         ] = $request->validated();
 
-        return new OrderResource($this->orderStore->process($this->userStore->safeStore($contactInfo), $items));
+        return new OrderResource($this->orderStore->process($this->userStore->safeStore($contactInfo), $items, $note, $currency));
     }
 }

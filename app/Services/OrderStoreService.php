@@ -24,8 +24,11 @@ class OrderStoreService
     /**
      * @param User $user
      * @param array $items
+     * @param string $note
+     * @param string $currency
+     * @return Order
      */
-    public function process(User $user, array $items, string $note = ''): Order
+    public function process(User $user, array $items, string $note = '', string $currency = 'euro'): Order
     {
         /** @var Order $order */
         $order = Order::query()->create([
@@ -34,6 +37,7 @@ class OrderStoreService
             'note' => $note,
             'delivery_cost' => config('pizza-settings.delivery_cost'),
             'total_cost' => 0,
+            'currency' => $currency,
             'user_id' => $user->id,
             'token' => Uuid::uuid4()->toString()
         ]);
@@ -44,7 +48,7 @@ class OrderStoreService
     protected function updateTotalCost(Order $order)
     {
         $order->fill([
-            'total_cost' => $order->items->map(fn($orderItem) => $orderItem->cost * $orderItem->count)->sum() + $order->delivery_cost
+            'total_cost' => $order->items->map(fn($orderItem) => $orderItem->cost * $orderItem->count)->sum() + ceil($order->delivery_cost * config('pizza-settings.currencies.'.$order->currency))
         ])->save();
         return $order;
     }

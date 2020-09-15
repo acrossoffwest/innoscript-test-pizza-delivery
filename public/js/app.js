@@ -2104,11 +2104,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mixins: [_mixins_currency__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_cart__WEBPACK_IMPORTED_MODULE_2__["default"]],
   created: function created() {
+    if (!this.$store.getters.cartItemsCount) {
+      window.location.href = '/';
+    }
+
     this.contactInfo = this.user || {};
+  },
+  watch: {
+    '$store.getters.cartItemsCount': function $storeGettersCartItemsCount(newVal) {
+      if (!newVal) {
+        window.location.href = '/';
+      }
+    }
   },
   data: function data() {
     return {
       contactInfo: null,
+      note: null,
       errors: {},
       updateTable: 0
     };
@@ -2129,33 +2141,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 4;
                 return axios.post('/api/orders', {
                   items: _this.prepareItemsForOrder(items),
-                  contact_info: _this.contactInfo
+                  contact_info: _this.contactInfo,
+                  currency: _this.$store.getters.currentCurrency,
+                  note: _this.note
                 });
 
               case 4:
                 _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data.data;
 
+                _this.clearCart(true);
+
                 _this.$swal('Thank you for your choice. You will get order details by email.').then(function () {
                   window.location.href = data.status_link;
                 });
 
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](0);
                 errors = _context.t0.response.data.errors;
                 _this.errors = errors || {};
                 console.log(_this.errors);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     prepareItemsForOrder: function prepareItemsForOrder(items) {
@@ -24934,7 +24950,38 @@ var render = function() {
           _c("hr", { staticClass: "pb-6 mt-6" }),
           _vm._v(" "),
           _c("div", { staticClass: "my-4 mt-6 -mx-2 lg:flex" }, [
-            _vm._m(4),
+            _c("div", { staticClass: "lg:px-2 lg:w-1/2" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-4" }, [
+                _c("p", { staticClass: "mb-4 italic" }, [
+                  _vm._v(
+                    "If you have some information for the courier you can leave them in the box below"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.note,
+                      expression: "note"
+                    }
+                  ],
+                  staticClass: "w-full h-24 p-2 bg-gray-100 rounded",
+                  domProps: { value: _vm.note },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.note = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "lg:px-2 lg:w-1/2" }, [
               _vm._m(5),
@@ -25142,21 +25189,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "lg:px-2 lg:w-1/2" }, [
-      _c("div", { staticClass: "p-4 bg-gray-100 rounded-full" }, [
-        _c("h1", { staticClass: "ml-2 font-bold uppercase" }, [
-          _vm._v("Order note")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "p-4" }, [
-        _c("p", { staticClass: "mb-4 italic" }, [
-          _vm._v(
-            "If you have some information for the courier you can leave them in the box below"
-          )
-        ]),
-        _vm._v(" "),
-        _c("textarea", { staticClass: "w-full h-24 p-2 bg-gray-100 rounded" })
+    return _c("div", { staticClass: "p-4 bg-gray-100 rounded-full" }, [
+      _c("h1", { staticClass: "ml-2 font-bold uppercase" }, [
+        _vm._v("Order note")
       ])
     ])
   },
@@ -39487,6 +39522,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     clearCart: function clearCart() {
+      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (force) {
+        this.$store.commit('clearCart');
+        return;
+      }
+
       this.$swal({
         title: 'Do you want clear your cart?',
         type: 'warning',
@@ -39573,7 +39615,7 @@ var getCartItemsCountsSum = function getCartItemsCountsSum() {
   });
 };
 
-var defaultCurrency = 'dollar';
+var defaultCurrency = 'euro';
 
 if (!storage.get('currentCurrency')) {
   storage.set('currentCurrency', defaultCurrency);

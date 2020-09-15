@@ -10,7 +10,7 @@ const getCartItemsCountsSum = (items = {}) => {
     return Object.keys(items).map(i => items[i].count).reduce((a, b) => a + b)
 }
 
-const defaultCurrency = 'dollar'
+const defaultCurrency = 'euro'
 if (!storage.get('currentCurrency')) {
     storage.set('currentCurrency', defaultCurrency)
 }

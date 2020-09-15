@@ -121,7 +121,7 @@
                         </div>
                         <div class="p-4">
                             <p class="mb-4 italic">If you have some information for the courier you can leave them in the box below</p>
-                            <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
+                            <textarea v-model="note" class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
                         </div>
                     </div>
                     <div class="lg:px-2 lg:w-1/2">
@@ -174,11 +174,22 @@
         },
         mixins: [CurrencyMixin, CartMixin],
         created() {
+            if (!this.$store.getters.cartItemsCount) {
+                window.location.href = '/'
+            }
             this.contactInfo = this.user || {}
+        },
+        watch: {
+            '$store.getters.cartItemsCount'(newVal) {
+                if (!newVal) {
+                    window.location.href = '/'
+                }
+            }
         },
         data() {
             return {
                 contactInfo: null,
+                note: null,
                 errors: {},
                 updateTable: 0
             }
@@ -189,10 +200,12 @@
                     const items = this.$store.getters.items
                     const {data: {data}} = await axios.post('/api/orders', {
                         items: this.prepareItemsForOrder(items),
-                        contact_info: this.contactInfo
+                        contact_info: this.contactInfo,
+                        currency: this.$store.getters.currentCurrency,
+                        note: this.note,
                     })
+                    this.clearCart(true)
                     this.$swal('Thank you for your choice. You will get order details by email.').then(() => {
-
                         window.location.href = data.status_link
                     })
                 } catch ({response: {data: {errors}}}) {

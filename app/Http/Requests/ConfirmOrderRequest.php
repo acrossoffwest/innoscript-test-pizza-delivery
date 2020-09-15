@@ -16,6 +16,13 @@ class ConfirmOrderRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'note' => $this->note ?? ''
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,6 +34,7 @@ class ConfirmOrderRequest extends FormRequest
             'items' => 'required|array',
             'items.*' => 'required|integer',
             'note' => 'nullable|string',
+            'currency' => 'nullable|string',
             'contact_info' => 'required',
             'contact_info.name' => 'required|string',
             'contact_info.phone' => 'required|string',

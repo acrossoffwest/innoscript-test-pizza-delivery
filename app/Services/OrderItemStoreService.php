@@ -23,7 +23,7 @@ class OrderItemStoreService
                 'product_id' => $product->id,
                 'order_id' => $order->id,
                 'count' => $productsCount,
-                'cost' => $product->cost,
+                'cost' => ceil($product->cost * config('pizza-settings.currencies.'.$order->currency)),
                 'weight' => $product->weight
             ]);
         }
