@@ -3,3 +3,13 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+.item {
+    height: 250px;
+}
+
+@media (max-width: 768px) {
+    .item {
+        height: auto;
+    }
+}

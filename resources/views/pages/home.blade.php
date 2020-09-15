@@ -6,9 +6,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-content-center">
         @forelse($type->products as $product)
             <div class="px-4 py-2 m-2">
-                <div :class="`flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg overflow-hidden`" style="height: 250px;">
-                    <div class="w-full bg-cover cursor-pointer" style="background-image: url('{{ $product->image->publicPath }}')" @click="$refs['product-{{ $product->id }}'].$emit('toggle')">
-                    </div>
+                <div :class="`md:flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg overflow-hidden item`">
+                    <img class="md:hidden w-full" src="{{ $product->image->publicPath }}" alt="">
+                    <div class="w-full bg-cover cursor-pointer hidden sm:block" style="background-image: url('{{ $product->image->publicPath }}')" @click="$refs['product-{{ $product->id }}'].$emit('toggle')"></div>
                     <div class="w-full p-4">
                         <h3 class="text-gray-900 font-bold text-xl cursor-pointer" @click="$refs['product-{{ $product->id }}'].$emit('toggle')">{{ str_limit($product->name, 10) }}</h3>
                         <p class="mt-2 text-gray-600 text-sm cursor-pointer" @click="$refs['product-{{ $product->id }}'].$emit('toggle')">{{ str_limit($product->description, 90) }}</p>
