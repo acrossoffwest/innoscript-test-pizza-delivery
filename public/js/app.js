@@ -1923,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_currency__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/currency */ "./resources/js/mixins/currency.js");
+/* harmony import */ var _mixins_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/cart */ "./resources/js/mixins/cart.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2087,6 +2088,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Cart",
@@ -2096,7 +2102,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       type: Object
     }
   },
-  mixins: [_mixins_currency__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_currency__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_cart__WEBPACK_IMPORTED_MODULE_2__["default"]],
   created: function created() {
     this.contactInfo = this.user || {};
   },
@@ -2131,8 +2137,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data = _yield$axios$post.data.data;
 
                 _this.$swal('Thank you for your choice. You will get order details by email.').then(function () {
-                  _this.$store.commit('clearCart');
-
                   window.location.href = data.status_link;
                 });
 
@@ -24851,6 +24855,7 @@ var render = function() {
                     staticClass: "w-full px-3 mb-6 md:mb-0",
                     attrs: {
                       label: "Name",
+                      placeholder: "Enter your name",
                       value: _vm.contactInfo.name,
                       errors: _vm.errors["contact_info.name"]
                     },
@@ -24865,6 +24870,7 @@ var render = function() {
                     staticClass: "w-full px-3",
                     attrs: {
                       label: "Phone",
+                      placeholder: "Enter your phone number",
                       value: _vm.contactInfo.phone,
                       errors: _vm.errors["contact_info.phone"]
                     },
@@ -24887,6 +24893,7 @@ var render = function() {
                     attrs: {
                       label: "Email",
                       type: "email",
+                      placeholder: "Enter your E-mail address",
                       value: _vm.contactInfo.email,
                       errors: _vm.errors["contact_info.email"]
                     },
@@ -24908,6 +24915,7 @@ var render = function() {
                     staticClass: "w-full px-3",
                     attrs: {
                       label: "Address",
+                      placeholder: "Enter your address for delivery",
                       value: _vm.contactInfo.address,
                       errors: _vm.errors["contact_info.address"]
                     },
@@ -24933,9 +24941,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "p-4" }, [
                 _c("p", { staticClass: "mb-6 italic" }, [
-                  _vm._v(
-                    "Shipping and additionnal costs are calculated based on values you have entered"
-                  )
+                  _vm._v("Shipping cost fixed")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -25146,7 +25152,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "p-4" }, [
         _c("p", { staticClass: "mb-4 italic" }, [
           _vm._v(
-            "If you have some information for the seller you can leave them in the box below"
+            "If you have some information for the courier you can leave them in the box below"
           )
         ]),
         _vm._v(" "),
@@ -39481,12 +39487,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     clearCart: function clearCart() {
-      if (!confirm('Do you want clear your cart?')) {
-        return;
-      }
+      this.$swal({
+        title: 'Do you want clear your cart?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, clear it!',
+        cancelButtonText: 'No, cancel!',
+        buttonsStyling: true
+      }).then(function (isConfirm) {
+        if (!isConfirm.value) {
+          return;
+        }
 
-      this.$store.commit('clearCart');
-      ++this.updateDetailedCounts;
+        this.$store.commit('clearCart');
+        ++this.updateDetailedCounts;
+      });
     }
   }
 });

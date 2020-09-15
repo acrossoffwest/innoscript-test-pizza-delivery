@@ -80,12 +80,14 @@
                             <field
                                 class="w-full px-3 mb-6 md:mb-0"
                                 label="Name"
+                                placeholder="Enter your name"
                                 :value.sync="contactInfo.name"
                                 :errors="errors['contact_info.name']"
                             />
                             <field
                                 class="w-full px-3"
                                 label="Phone"
+                                placeholder="Enter your phone number"
                                 :value.sync="contactInfo.phone"
                                 :errors="errors['contact_info.phone']"
                             />
@@ -95,6 +97,7 @@
                                 class="w-full px-3"
                                 label="Email"
                                 type="email"
+                                placeholder="Enter your E-mail address"
                                 :value.sync="contactInfo.email"
                                 :errors="errors['contact_info.email']"
                             />
@@ -103,6 +106,7 @@
                             <field
                                 class="w-full px-3"
                                 label="Address"
+                                placeholder="Enter your address for delivery"
                                 :value.sync="contactInfo.address"
                                 :errors="errors['contact_info.address']"
                             />
@@ -116,7 +120,7 @@
                             <h1 class="ml-2 font-bold uppercase">Order note</h1>
                         </div>
                         <div class="p-4">
-                            <p class="mb-4 italic">If you have some information for the seller you can leave them in the box below</p>
+                            <p class="mb-4 italic">If you have some information for the courier you can leave them in the box below</p>
                             <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
                         </div>
                     </div>
@@ -125,7 +129,7 @@
                             <h1 class="ml-2 font-bold uppercase">Order Details</h1>
                         </div>
                         <div class="p-4">
-                            <p class="mb-6 italic">Shipping and additionnal costs are calculated based on values you have entered</p>
+                            <p class="mb-6 italic">Shipping cost fixed</p>
                             <div class="flex justify-between pt-4 border-b">
                                 <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
                                     Shipping cost
@@ -158,6 +162,8 @@
 
 <script>
     import CurrencyMixin from '../mixins/currency'
+    import CartMixin from '../mixins/cart'
+
     export default {
         name: "Cart",
         props: {
@@ -166,7 +172,7 @@
                 type: Object
             }
         },
-        mixins: [CurrencyMixin],
+        mixins: [CurrencyMixin, CartMixin],
         created() {
             this.contactInfo = this.user || {}
         },
@@ -186,7 +192,7 @@
                         contact_info: this.contactInfo
                     })
                     this.$swal('Thank you for your choice. You will get order details by email.').then(() => {
-                        this.$store.commit('clearCart')
+
                         window.location.href = data.status_link
                     })
                 } catch ({response: {data: {errors}}}) {

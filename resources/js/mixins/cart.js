@@ -28,11 +28,22 @@ export default {
             })
         },
         clearCart() {
-            if (!confirm('Do you want clear your cart?')) {
-                return
-            }
-            this.$store.commit('clearCart')
-            ++this.updateDetailedCounts
+            this.$swal({
+                title: 'Do you want clear your cart?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, clear it!',
+                cancelButtonText: 'No, cancel!',
+                buttonsStyling: true
+            }).then(function (isConfirm) {
+                if(!isConfirm.value) {
+                    return
+                }
+                this.$store.commit('clearCart')
+                ++this.updateDetailedCounts
+            });
         }
     }
 }

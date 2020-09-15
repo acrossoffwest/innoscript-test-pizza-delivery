@@ -47,7 +47,7 @@
                     €
                 </a>
                 <a v-if="cartItemsCount" href="{{ route('cart') }}" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
-                    Cart <span v-html="`(${cartItemsCount})`"></span>
+                    Cart <span class="p-2 bg-gray-200 rounded" v-html="`${cartItemsCount}`"></span>
                 </a>
                 @guest
                     <a href="{{ route('login') }}" class="whitespace-no-wrap text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900">
