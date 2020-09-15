@@ -9,4 +9,8 @@ export default class Storage {
         const item = localStorage.getItem(key)
         return item !== null && item !== undefined ? JSON.parse(item) : null
     }
+
+    delete(key) {
+        localStorage.removeItem(key)
+    }
 }

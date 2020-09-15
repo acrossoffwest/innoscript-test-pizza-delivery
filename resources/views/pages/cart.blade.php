@@ -20,42 +20,56 @@
                         <th class="text-right">Total price</th>
                     </tr>
                     </thead>
-                    <tbody :key="updateDetailedCounts">
-                    <tr v-for="orderItem in $store.getters.cart.items" :key="orderItem.item.id">
-                        <td class="hidden pb-4 md:table-cell">
-                            <a href="#">
-                                <img :src="orderItem.item.image.publicPath" class="w-20 rounded" alt="Thumbnail">
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <p class="mb-2 md:ml-4">@{{ orderItem.item.name }}</p>
-                                <button @click="$store.commit('removeAllItem', orderItem.item.id); ++updateDetailedCounts;" type="submit" class="text-gray-700 md:ml-4">
-                                    <small>(Remove item)</small>
-                                </button>
-                            </a>
-                        </td>
-                        <td class="justify-center md:justify-end md:flex mt-6">
-                            <div class="w-20 h-10">
-                                <div class="relative flex flex-row w-full h-8">
-                                    <input type="number" v-model="orderItem.count"
-                                           class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" disabled/>
-                                    <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', orderItem.item)">+</button>
-                                    <button v-if="orderItem.count" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', orderItem.item.id)">-</button>
+                    <tbody v-if="$store.getters.cartItemsCount" :key="updateDetailedCounts">
+                        <tr v-for="orderItem in $store.getters.cart.items" :key="orderItem.item.id">
+                            <td class="hidden pb-4 md:table-cell">
+                                <a href="#">
+                                    <img :src="orderItem.item.image.publicPath" class="w-20 rounded" alt="Thumbnail">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <p class="mb-2 md:ml-4">@{{ orderItem.item.name }}</p>
+                                    <button @click="$store.commit('removeAllItem', orderItem.item.id); ++updateDetailedCounts;" type="submit" class="text-gray-700 md:ml-4">
+                                        <small>(Remove item)</small>
+                                    </button>
+                                </a>
+                            </td>
+                            <td class="justify-center md:justify-end md:flex mt-6">
+                                <div class="w-20 h-10">
+                                    <div class="relative flex flex-row w-full h-8">
+                                        <input type="number" v-model="orderItem.count"
+                                               class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" disabled/>
+                                        <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', orderItem.item)">+</button>
+                                        <button v-if="orderItem.count" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', orderItem.item.id)">-</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="hidden text-right md:table-cell">
-                          <span class="text-sm lg:text-base font-medium">
-                             @{{ orderItem.item.cost }}$
-                          </span>
-                        </td>
-                        <td class="text-right">
-                          <span class="text-sm lg:text-base font-medium">
-                            @{{ orderItem.item.cost * orderItem.count }}$
-                          </span>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="hidden text-right md:table-cell">
+                              <span class="text-sm lg:text-base font-medium">
+                                 @{{ orderItem.item.cost }}$
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <span class="text-sm lg:text-base font-medium">
+                                @{{ orderItem.item.cost * orderItem.count }}$
+                              </span>
+                            </td>
+                        </tr>
+                        <tr v-if="$store.getters.cartItemsCount">
+                            <td colspan="4">
+                            </td>
+                            <td class="text-right">
+                                <a href="#" @click.prevent="clearCart">Clear cart</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <p>You don't have items in your cart.</p>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <hr class="pb-6 mt-6">

@@ -74,6 +74,9 @@ export default new Vuex.Store({
             }
             delete state.cart.items[itemId]
             storage.set('cart', state.cart)
+        },
+        clearCart(state){
+            storage.delete('cart')
         }
     },
     getters: {

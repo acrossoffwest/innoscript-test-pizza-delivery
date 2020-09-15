@@ -34862,6 +34862,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
           }
         }, _callee2);
       }))();
+    },
+    clearCart: function clearCart() {
+      if (!confirm('Do you want clear your cart?')) {
+        return;
+      }
+
+      this.$store.commit('clearCart');
+      ++this.updateDetailedCounts;
     }
   }
 });
@@ -35099,6 +35107,11 @@ var Storage = /*#__PURE__*/function () {
       var item = localStorage.getItem(key);
       return item !== null && item !== undefined ? JSON.parse(item) : null;
     }
+  }, {
+    key: "delete",
+    value: function _delete(key) {
+      localStorage.removeItem(key);
+    }
   }]);
 
   return Storage;
@@ -35216,6 +35229,9 @@ var getCartItemsCountsSum = function getCartItemsCountsSum() {
 
       delete state.cart.items[itemId];
       storage.set('cart', state.cart);
+    },
+    clearCart: function clearCart(state) {
+      storage["delete"]('cart');
     }
   },
   getters: {

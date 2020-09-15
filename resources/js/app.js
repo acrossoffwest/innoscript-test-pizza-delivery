@@ -58,6 +58,13 @@ const app = new Vue({
                 const {data: {data}} = await axios.get(`/api/products/${cartItem.item.id}`)
                 this.$store.commit('updateItem', data)
             })
+        },
+        clearCart() {
+            if (!confirm('Do you want clear your cart?')) {
+                return
+            }
+            this.$store.commit('clearCart')
+            ++this.updateDetailedCounts
         }
     }
 });
