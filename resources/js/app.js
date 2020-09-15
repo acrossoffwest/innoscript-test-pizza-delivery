@@ -1,3 +1,5 @@
+import Storage from "./helpers/Storage";
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -5,8 +7,8 @@
  */
 
 require('./bootstrap');
-require('alpinejs')
-window.Vue = require('vue');
+import Vue from 'vue';
+import store from './store/index';
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,10 +18,8 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,7 +29,35 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    data: () => ({
-        showMobileMenu: false
-    })
+    store,
+    created() {
+        this.$store.commit('freshCartItemsCount')
+        this.updateCosts()
+    },
+    computed: {
+        cartItemsCount () {
+            return this.$store.getters.cartItemsCount
+        }
+    },
+    data() {
+        return {
+            showMobileMenu: false,
+            updateDetailedCounts: 0
+        }
+    },
+    methods: {
+        async updateCosts() {
+            const items = this.$store.getters.items
+            const itemsKeys = Object.keys(items)
+            if (!itemsKeys.length) {
+                return
+            }
+
+            itemsKeys.map(async cartItemKey => {
+                const cartItem = items[cartItemKey]
+                const {data: {data}} = await axios.get(`/api/products/${cartItem.item.id}`)
+                this.$store.commit('updateItem', data)
+            })
+        }
+    }
 });

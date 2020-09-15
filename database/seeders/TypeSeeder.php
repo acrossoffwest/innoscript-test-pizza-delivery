@@ -18,14 +18,14 @@ class TypeSeeder extends Seeder
     {
         DB::table('types')->insert([
             'id' => 1,
-            'name' => 'Пицца',
+            'name' => 'Pizza',
             'slug' => 'pizza',
             'unit' => 'кг'
         ]);
         DB::table('types')->insert([
             'id' => 2,
-            'name' => 'Напитки',
-            'slug' => 'drinks',
+            'name' => 'Drink',
+            'slug' => 'drink',
             'unit' => 'л'
         ]);
     }

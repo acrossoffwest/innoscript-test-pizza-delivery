@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Services\ImageService;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,14 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $faker = app(Generator::class);
+        $this->addPizzas($faker);
+        $this->addDrinks($faker);
+    }
+
+
+
+    private function addPizzas(Generator $faker)
+    {
         $pizzaNames = [
             'Margherita',
             'Marinara',
@@ -55,7 +64,7 @@ class ProductSeeder extends Seeder
                 'category_id' => rand(1, 3),
                 'description' => $pizzaName.' is pizza. '.$faker->text,
                 'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
-                'cost' => rand(300, 1000),
+                'cost' => rand(3, 25),
                 'image_id' => $image->id
             ], [
                 1 => $faker->boolean,
@@ -77,14 +86,14 @@ class ProductSeeder extends Seeder
                     'is_default' => false,
                     'value' => 35,
                     'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
-                    'cost' => rand(300, 1000)
+                    'cost' => rand(3, 25)
                 ],
                 [
                     'product_option_id' => 1,
                     'is_default' => false,
                     'value' => 50,
                     'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
-                    'cost' => rand(300, 1000)
+                    'cost' => rand(3, 25)
                 ],
                 [
                     'product_option_id' => 2,
@@ -98,11 +107,53 @@ class ProductSeeder extends Seeder
                     'is_default' => false,
                     'weight' => floatval(rand(0, 1).'.'.rand(0,9)),
                     'value' => 'Толстое',
-                    'cost' => rand(50, 300)
+                    'cost' => rand(1, 3)
                 ]
             ]);
         }
+    }
 
+    private function addDrinks(Generator $faker)
+    {
+        $names = [
+            'Drink 1',
+            'Drink 2',
+            'Drink 3',
+            'Drink 4'
+        ];
+
+        $imageService = new ImageService();
+        $id = Product::query()->count();
+        foreach ($names as $index => $name) {
+            ++$id;
+            $image = $imageService->getImageModelGeneratedRandomly('drinks');
+            $this->insertNewProduct($id, [
+                'is_available' => true,
+                'name' => $name,
+                'slug' => Str::slug($name),
+                'type_id' => 2,
+                'category_id' => rand(4, 5),
+                'description' => $name.' is drink. '.$faker->text,
+                'weight' => floatval(rand(0, 1).'.'.rand(0, 10)),
+                'cost' => rand(3, 25),
+                'image_id' => $image->id
+            ], [], [
+                [
+                    'product_option_id' => 3,
+                    'is_default' => true,
+                    'value' => 0.5,
+                    'weight' => 0.5,
+                    'cost' => 0
+                ],
+                [
+                    'product_option_id' => 3,
+                    'is_default' => false,
+                    'value' => 1,
+                    'weight' => 1,
+                    'cost' => 0
+                ]
+            ]);
+        }
     }
 
     private function insertNewProduct(int $id, array $productData, array $ingredientsIds, array $options)

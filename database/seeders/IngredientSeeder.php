@@ -17,7 +17,7 @@ class IngredientSeeder extends Seeder
         $table = 'ingredients';
         DB::table($table)->insert([
             'id' => 1,
-            'name' => 'Сыр Пармезан',
+            'name' => 'Cheese Parmesan',
             'slug' => 'cheese_parmesan',
             'weight' => 0.2,
             'remain' => 3,
@@ -25,7 +25,7 @@ class IngredientSeeder extends Seeder
         ]);
         DB::table($table)->insert([
             'id' => 2,
-            'name' => 'Сыр Чедар',
+            'name' => 'Cheese Chedar',
             'slug' => 'cheese_chedar',
             'weight' => 0.15,
             'remain' => 3,
@@ -33,7 +33,7 @@ class IngredientSeeder extends Seeder
         ]);
         DB::table($table)->insert([
             'id' => 3,
-            'name' => 'Копчёная колбаса',
+            'name' => 'Smoked Sausage',
             'slug' => 'smoked_sausage',
             'weight' => 0.3,
             'remain' => 3,
@@ -41,15 +41,15 @@ class IngredientSeeder extends Seeder
         ]);
         DB::table($table)->insert([
             'id' => 4,
-            'name' => 'Соус Барбекю',
-            'slug' => 'sauce_barbeq',
+            'name' => 'Sauce Barbecue',
+            'slug' => 'sauce_barbecue',
             'weight' => 0.23,
             'remain' => 3,
             'cost' => 12
         ]);
         DB::table($table)->insert([
             'id' => 5,
-            'name' => 'Соус Чесночный',
+            'name' => 'Sauce Garlic',
             'slug' => 'sauce_garlic',
             'weight' => 0.14,
             'remain' => 3,
@@ -57,7 +57,7 @@ class IngredientSeeder extends Seeder
         ]);
         DB::table($table)->insert([
             'id' => 6,
-            'name' => 'Томат',
+            'name' => 'Tomate',
             'slug' => 'tomate',
             'weight' => 0.24,
             'remain' => 3,
@@ -65,7 +65,7 @@ class IngredientSeeder extends Seeder
         ]);
         DB::table($table)->insert([
             'id' => 7,
-            'name' => 'Лук',
+            'name' => 'Onion',
             'slug' => 'onion',
             'weight' => 0.1,
             'remain' => 3,

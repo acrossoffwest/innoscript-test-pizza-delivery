@@ -12,6 +12,10 @@ class Image extends Model
 
     protected $guarded = ['id'];
 
+    protected $appends = [
+        'publicPath'
+    ];
+
     public function getPublicPathAttribute()
     {
         return Storage::url($this->path);

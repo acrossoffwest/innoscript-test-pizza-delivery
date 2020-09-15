@@ -26,6 +26,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "alpinejs": "^2.7.0"
+        "alpinejs": "^2.7.0",
+        "es6-promise": "^4.2.8",
+        "vuex": "^3.5.1"
     }
 }

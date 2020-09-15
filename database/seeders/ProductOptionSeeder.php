@@ -17,7 +17,7 @@ class ProductOptionSeeder extends Seeder
         $table = 'product_options';
         DB::table($table)->insert([
             'id' => 1,
-            'name' => 'Размер',
+            'name' => 'Size',
             'slug' => 'size',
             'unit' => 'см',
             'type_id' => 1

@@ -4,6 +4,9 @@
     <div class="flex justify-center my-6">
         <div class="flex flex-col w-full p-8 text-gray-800 bg-white pin-r pin-y md:w-4/5 lg:w-4/5">
             <div class="flex-1">
+                <div class="p-4 mb-5 bg-gray-100 rounded-full">
+                    <h1 class="ml-2 font-bold uppercase">Cart</h1>
+                </div>
                 <table class="w-full text-sm lg:text-base" cellspacing="0">
                     <thead>
                     <tr class="h-12 uppercase">
@@ -17,44 +20,53 @@
                         <th class="text-right">Total price</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
+                    <tbody :key="updateDetailedCounts">
+                    <tr v-for="orderItem in $store.getters.cart.items" :key="orderItem.item.id">
                         <td class="hidden pb-4 md:table-cell">
                             <a href="#">
-                                <img src="/storage/ssRY2cA6Iylh05kqEZOItegbpIqFiLV7inb8qgtv.jpeg" class="w-20 rounded" alt="Thumbnail">
+                                <img :src="orderItem.item.image.publicPath" class="w-20 rounded" alt="Thumbnail">
                             </a>
                         </td>
                         <td>
                             <a href="#">
-                                <p class="mb-2 md:ml-4">Carbonara</p>
-                                <form action="" method="POST">
-                                    <button type="submit" class="text-gray-700 md:ml-4">
-                                        <small>(Remove item)</small>
-                                    </button>
-                                </form>
+                                <p class="mb-2 md:ml-4">@{{ orderItem.item.name }}</p>
+                                <button @click="$store.commit('removeAllItem', orderItem.item.id); ++updateDetailedCounts;" type="submit" class="text-gray-700 md:ml-4">
+                                    <small>(Remove item)</small>
+                                </button>
                             </a>
                         </td>
                         <td class="justify-center md:justify-end md:flex mt-6">
                             <div class="w-20 h-10">
                                 <div class="relative flex flex-row w-full h-8">
-                                    <input type="number" value="2"
-                                           class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                    <input type="number" v-model="orderItem.count"
+                                           class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" disabled/>
+                                    <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', orderItem.item)">+</button>
+                                    <button v-if="orderItem.count" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', orderItem.item.id)">-</button>
                                 </div>
                             </div>
                         </td>
                         <td class="hidden text-right md:table-cell">
-              <span class="text-sm lg:text-base font-medium">
-                10.00€
-              </span>
+                          <span class="text-sm lg:text-base font-medium">
+                             @{{ orderItem.item.cost }}$
+                          </span>
                         </td>
                         <td class="text-right">
-              <span class="text-sm lg:text-base font-medium">
-                20.00€
-              </span>
+                          <span class="text-sm lg:text-base font-medium">
+                            @{{ orderItem.item.cost * orderItem.count }}$
+                          </span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <hr class="pb-6 mt-6">
+                <div class="p-4 mb-5 bg-gray-100 rounded-full">
+                    <h1 class="ml-2 font-bold uppercase">Contact info</h1>
+                </div>
+                <div class="flex">
+                    <div class="w-full pr-5">
+                        <contact-info-form></contact-info-form>
+                    </div>
+                </div>
                 <hr class="pb-6 mt-6">
                 <div class="my-4 mt-6 -mx-2 lg:flex">
                     <div class="lg:px-2 lg:w-1/2">
@@ -77,7 +89,7 @@
                                     Shipping cost
                                 </div>
                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                    2,976.55€
+                                    @{{ $store.getters.shippingCost }}$
                                 </div>
                             </div>
                             <div class="flex justify-between pt-4 border-b">
@@ -85,7 +97,7 @@
                                     Total
                                 </div>
                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                    17,859.3€
+                                    @{{ $store.getters.totalCost }}$
                                 </div>
                             </div>
                             <a href="#">

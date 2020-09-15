@@ -48,9 +48,9 @@ class ImageService
         return '.'.$ext;
     }
 
-    public function getRandomImageRelativePath(string $disk = 'public'): string
+    public function getRandomImageRelativePath(string $dir = 'pizza', string $disk = 'public'): string
     {
-        $filepath = $this->getRandomImageFrom(resource_path('images'));
+        $filepath = $this->getRandomImageFrom(resource_path('images/'.trim($dir, '/')));
         $uploadedFile = $this->getUploadedFileBy($filepath)->getClientOriginalExtension();
         $tmpFilepath = $this->getTmpFilepath($uploadedFile);
         copy($filepath, $tmpFilepath);
@@ -64,9 +64,9 @@ class ImageService
         return $filepath[count($filepath) - 1];
     }
 
-    public function getImageModelGeneratedRandomly(string $disk = 'public'): Image
+    public function getImageModelGeneratedRandomly(string $dir = 'pizza', string $disk = 'public'): Image
     {
-        $path = $this->getRandomImageRelativePath($disk);
+        $path = $this->getRandomImageRelativePath($dir, $disk);
 
         /** @var Image $image */
         $image = Image::query()->create([

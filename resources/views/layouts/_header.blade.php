@@ -39,21 +39,14 @@
                 @endif
             </nav>
             <div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
-                <a href="{{ route('cart') }}" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
-                    Cart
+                <a v-if="cartItemsCount" href="{{ route('cart') }}" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+                    Cart (@{{ cartItemsCount }})
                 </a>
                 <span>|</span>
                 @guest
                     <a href="{{ route('login') }}" class="whitespace-no-wrap text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900">
                         {{ __('Login') }}
                     </a>
-                    @if (Route::has('register'))
-                        <span class="inline-flex rounded-md shadow-sm">
-                          <a href="{{ route('register') }}" class="whitespace-no-wrap inline-flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-                            {{ __('Register') }}
-                          </a>
-                        </span>
-                    @endif
                 @else
                     <a href="{{ route('logout') }}" class="whitespace-no-wrap text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}

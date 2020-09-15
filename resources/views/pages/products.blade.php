@@ -50,7 +50,7 @@
                             <b>Default ingredients:</b>
                             <p>
                                 @forelse($product->defaultIngredients as $index => $ingredient)
-                                    <b>{{ $ingredient->name }}</b>: +{{ $ingredient->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $ingredient->cost }} {{ 'р' }}
+                                    <b>{{ $ingredient->name }}</b>: +{{ $ingredient->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $ingredient->cost }} $
                                     <br>
                                 @empty
                                     <div class="row">Product hasn't options</div>
@@ -61,7 +61,7 @@
                                 <b>Extra ingredients:</b>
                                 <p>
                                 @forelse($product->extraIngredients as $index => $ingredient)
-                                        <b>{{ $ingredient->name }}</b>: +{{ $ingredient->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $ingredient->cost }} {{ 'р' }}
+                                        <b>{{ $ingredient->name }}</b>: +{{ $ingredient->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $ingredient->cost }} $
                                         <br>
                                 @empty
                                     <div class="row">Product hasn't options</div><br>
@@ -72,7 +72,7 @@
                                 <b>Options:</b>
                                 <p>
                                     @forelse($product->options as $index => $option)
-                                        <b>{{ $option->name }}</b>: {{ $option->pivot->value }} {{ $option->unit }} +{{ $option->pivot->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $option->pivot->cost }} {{ 'р' }}
+                                        <b>{{ $option->name }}</b>: {{ $option->pivot->value }} {{ $option->unit }} +{{ $option->pivot->weight }} {{ $product->type ? $product->type->unit : '' }} +{{ $option->pivot->cost }} $
                                         <br>
                                     @empty
                                 <div class="row">Product hasn't options</div>

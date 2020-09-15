@@ -16,31 +16,31 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             'id' => 1,
-            'name' => 'Классические',
+            'name' => 'Classic',
             'slug' => 'classic',
             'type_id' => 1
         ]);
         DB::table('categories')->insert([
             'id' => 2,
-            'name' => 'Оригинальные',
+            'name' => 'Original',
             'slug' => 'original',
             'type_id' => 1
         ]);
         DB::table('categories')->insert([
             'id' => 3,
-            'name' => 'Сытные',
+            'name' => 'Nourishing',
             'slug' => 'nourishing',
             'type_id' => 1
         ]);
         DB::table('categories')->insert([
             'id' => 4,
-            'name' => 'Газировки',
+            'name' => 'Soda',
             'slug' => 'soda',
             'type_id' => 2
         ]);
         DB::table('categories')->insert([
             'id' => 5,
-            'name' => 'Соки',
+            'name' => 'Juice',
             'slug' => 'juice',
             'type_id' => 2
         ]);
