@@ -9,11 +9,22 @@ const cart = storage.get('cart') || {items: {}}
 const getCartItemsCountsSum = (items = {}) => {
     return Object.keys(items).map(i => items[i].count).reduce((a, b) => a + b)
 }
+
+const defaultCurrency = 'dollar'
+if (!storage.get('currentCurrency')) {
+    storage.set('currentCurrency', defaultCurrency)
+}
+
 export default new Vuex.Store({
     state: {
         cart: cart,
         cartItemsCount: 0,
-        shippingCost: 15
+        shippingCost: 15,
+        currentCurrency: storage.get('currentCurrency'),
+        currencies: {
+            euro: 1,
+            dollar: 1.19
+        }
     },
     mutations: {
         freshCartItemsCount(state){
@@ -77,6 +88,10 @@ export default new Vuex.Store({
         },
         clearCart(state){
             storage.delete('cart')
+        },
+        setCurrentCurrency(state, currency){
+            state.currentCurrency = currency
+            storage.set('currentCurrency', currency)
         }
     },
     getters: {
@@ -91,6 +106,15 @@ export default new Vuex.Store({
         },
         shippingCost(state){
             return state.shippingCost
+        },
+        currencies(state){
+            return state.currencies
+        },
+        rate(state){
+            return state.currencies[state.currentCurrency]
+        },
+        currentCurrency(state){
+            return state.currentCurrency
         },
         totalCost(state){
             const items = state.cart.items

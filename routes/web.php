@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/cart', [\App\Http\Controllers\CartController::class, 'show'])->name('cart');
-
 Auth::routes();
+
+Route::get('/', \App\Http\Controllers\HomeController::class);
+Route::get('/cart', \App\Http\Controllers\CartController::class)->name('cart');
+Route::get('/orders/{token}/status', [\App\Http\Controllers\OrderController::class, 'status'])->name('orders.status');
 
 Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 

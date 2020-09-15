@@ -28,6 +28,7 @@
     "dependencies": {
         "alpinejs": "^2.7.0",
         "es6-promise": "^4.2.8",
+        "vue-sweetalert2": "^3.0.8",
         "vuex": "^3.5.1"
     }
 }
