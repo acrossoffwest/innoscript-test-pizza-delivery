@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('h1', 'My orders')
+@section('h1', auth()->user()->hasRole('admin') ? 'Orders' : 'My orders')
 @section('content')
 @if(auth()->check() && auth()->user()->hasRole('admin'))
     <div class="container">

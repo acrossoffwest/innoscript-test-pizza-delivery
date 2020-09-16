@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -24,7 +25,7 @@ class DashboardController extends Controller
     public function index()
     {
         return view('pages.dashboard')->with(
-            'orders', auth()->user()->orders
+            'orders', auth()->user()->hasRole('admin') ? Order::query()->orderByDesc('updated_at')->get() : auth()->user()->orders()->orderByDesc('updated_at')->get()
         );
     }
 }
