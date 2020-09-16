@@ -4,9 +4,9 @@
     @forelse($types as $type)
         <h2 class="text-gray-900 font-bold ml-6 text-3xl">{{ str_limit($type->name, 10) }}</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-content-center">
-        @forelse($type->products as $product)
+        @forelse($type->products as $i => $product)
             <div class="px-4 py-2 m-2">
-                <div :class="`md:flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg overflow-hidden item`" :key="updateDetailedCounts">
+                <div :class="`md:flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg item`" :key="updateDetailedCounts">
                     <img class="md:hidden w-full" src="{{ $product->image->publicPath }}" alt="">
                     <div class="w-full bg-cover cursor-pointer hidden sm:block" style="background-image: url('{{ $product->image->publicPath }}')" @click="$refs['product-{{ $product->id }}'].$emit('toggle')"></div>
                     <div class="w-full p-4">
@@ -24,8 +24,9 @@
                                     </span>
                             </h3>
                             <div>
+                                <fly-pizza v-if="$refs.cart && animateProductId === {{ $product->id }}" @done="animateProductId = null" ref="fly-pizza-{{ $product->id }}" :target="$refs.cart.$el"></fly-pizza>
                                 <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
-                                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
+                                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts; animateProductId = {{ $product->id }}">+</button>
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                 <template #footer>
                     <div class="flex justify-between mt-3" :key="updateDetailedCounts">
                         <div class="justify-between w-1/3">
-                            <div class="inline">
+                            <div class="    inline">
                                 <button class="px-3 ml-0  py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
                                 <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 mr-2 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
                             </div>
@@ -64,5 +65,5 @@
         </div>
         @empty
         @endforelse
-    <float-cart></float-cart>
+        <float-cart ref="cart"></float-cart>
 @endsection

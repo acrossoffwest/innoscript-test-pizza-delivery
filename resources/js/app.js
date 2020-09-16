@@ -20,7 +20,8 @@ const app = new Vue({
     mixins: [require('./mixins/cart').default, require('./mixins/currency').default],
     data() {
         return {
-            showMobileMenu: false
+            showMobileMenu: false,
+            animateProductId: null
         }
     },
     methods: {
