@@ -24775,7 +24775,7 @@ var render = function() {
                                         "removeAllItem",
                                         orderItem.item.id
                                       )
-                                      ++_vm.updateDetailedCounts
+                                      ++_vm.updateTable
                                     }
                                   }
                                 },

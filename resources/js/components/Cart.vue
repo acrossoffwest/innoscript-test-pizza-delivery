@@ -28,7 +28,7 @@
                         <td>
                             <a href="#">
                                 <p class="mb-2 md:ml-4">{{ orderItem.item.name }}</p>
-                                <button @click="$store.commit('removeAllItem', orderItem.item.id); ++updateDetailedCounts;" type="submit" class="text-gray-700 md:ml-4">
+                                <button @click="$store.commit('removeAllItem', orderItem.item.id); ++updateTable;" type="submit" class="text-gray-700 md:ml-4">
                                     <small>(Remove item)</small>
                                 </button>
                             </a>
