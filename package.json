@@ -30,7 +30,9 @@
     "dependencies": {
         "alpinejs": "^2.7.0",
         "es6-promise": "^4.2.8",
+        "vue-google-autocomplete": "^1.1.0",
         "vue-sweetalert2": "^3.0.8",
+        "vue-the-mask": "^0.11.1",
         "vuex": "^3.5.1"
     }
 }

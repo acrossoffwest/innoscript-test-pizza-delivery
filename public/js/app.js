@@ -2090,6 +2090,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2119,6 +2125,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       contactInfo: null,
       note: null,
+      disabledOrderButton: false,
       errors: {},
       updateTable: 0
     };
@@ -2134,9 +2141,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                _this.errors = {};
+                _this.disabledOrderButton = true;
+                _context.prev = 2;
                 items = _this.$store.getters.items;
-                _context.next = 4;
+                _context.next = 6;
                 return axios.post('/api/orders', {
                   items: _this.prepareItemsForOrder(items),
                   contact_info: _this.contactInfo,
@@ -2144,7 +2153,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   note: _this.note
                 });
 
-              case 4:
+              case 6:
                 _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data.data;
 
@@ -2154,22 +2163,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   window.location.href = data.status_link;
                 });
 
-                _context.next = 15;
+                _context.next = 17;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](0);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](2);
                 errors = _context.t0.response.data.errors;
                 _this.errors = errors || {};
                 console.log(_this.errors);
 
-              case 15:
+              case 17:
+                _context.prev = 17;
+                _this.disabledOrderButton = false;
+                return _context.finish(17);
+
+              case 20:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[2, 12, 17, 20]]);
       }))();
     },
     prepareItemsForOrder: function prepareItemsForOrder(items) {
@@ -2228,6 +2242,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Field",
   props: {
@@ -2237,6 +2259,10 @@ __webpack_require__.r(__webpack_exports__);
     label: {
       required: true,
       type: String
+    },
+    mask: {
+      required: false,
+      type: Array
     },
     type: {
       required: false,
@@ -2253,6 +2279,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Array
     }
   },
+  data: function data() {
+    return {
+      defaultClass: 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+    };
+  },
   computed: {
     val: {
       set: function set(v) {
@@ -2261,6 +2292,17 @@ __webpack_require__.r(__webpack_exports__);
       get: function get() {
         return this.value;
       }
+    }
+  },
+  methods: {
+    /**
+     * When the location found
+     * @param {Object} addressData Data of the found location
+     * @param {Object} placeResultData PlaceResult object
+     * @param {String} id Input container ID
+     */
+    getAddressData: function getAddressData(addressData, placeResultData, id) {
+      this.$emit('update:value', addressData.route);
     }
   }
 });
@@ -24698,6 +24740,490 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue":
+/*!****************************************************************************!*\
+  !*** ./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea& */ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea&");
+/* harmony import */ var _VueGoogleAutocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VueGoogleAutocomplete.vue?vue&type=script&lang=js& */ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _VueGoogleAutocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_VueGoogleAutocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/lib??vue-loader-options!./VueGoogleAutocomplete.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_vue_loader_lib_index_js_vue_loader_options_VueGoogleAutocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea&":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../vue-loader/lib??vue-loader-options!./VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueGoogleAutocomplete_vue_vue_type_template_id_a72a90ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+    const ADDRESS_COMPONENTS = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        administrative_area_level_2: 'county',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    const CITIES_TYPE = ['locality', 'administrative_area_level_3'];
+    const REGIONS_TYPE = ['locality', 'sublocality', 'postal_code', 'country',
+        'administrative_area_level_1', 'administrative_area_level_2'];
+
+    /* harmony default export */ __webpack_exports__["default"] = ({
+        name: 'VueGoogleAutocomplete',
+
+        props: {
+          id: {
+            type: String,
+            required: true
+          },
+
+          classname: String,
+
+          placeholder: {
+            type: String,
+            default: 'Start typing'
+          },
+
+          types: {
+            type: String,
+            default: 'address'
+          },
+
+          country: {
+            type: [String, Array],
+            default: null
+          },
+
+          enableGeolocation: {
+            type: Boolean,
+            default: false
+          },
+
+          geolocationOptions: {
+            type: Object,
+            default: null
+          }
+        },
+
+        data() {
+            return {
+                /**
+                 * The Autocomplete object.
+                 *
+                 * @type {Autocomplete}
+                 * @link https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
+                 */
+                autocomplete: null,
+
+                /**
+                 * Autocomplete input text
+                 * @type {String}
+                 */
+                autocompleteText: '',
+
+                geolocation: {
+                    /**
+                     * Google Geocoder Objet
+                     * @type {Geocoder}
+                     * @link https://developers.google.com/maps/documentation/javascript/reference#Geocoder
+                     */
+                    geocoder: null,
+
+                    /**
+                     * Filled after geolocate result
+                     * @type {Coordinates}
+                     * @link https://developer.mozilla.org/en-US/docs/Web/API/Coordinates
+                     */
+                    loc: null,
+
+                    /**
+                     * Filled after geolocate result
+                     * @type {Position}
+                     * @link https://developer.mozilla.org/en-US/docs/Web/API/Position
+                     */
+                    position: null
+                }
+            }
+        },
+
+        watch: {
+            autocompleteText: function (newVal, oldVal) {
+	            this.$emit('inputChange', { newVal, oldVal }, this.id);
+            },
+            country: function(newVal, oldVal) {
+              this.autocomplete.setComponentRestrictions({
+                country: this.country === null ? [] : this.country
+              });
+            }
+        },
+
+        mounted: function() {
+          const options = {};
+
+          if (this.types) {
+            options.types = [this.types];
+          }
+
+          if (this.country) {
+            options.componentRestrictions = {
+              country: this.country
+            };
+          }
+
+          this.autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById(this.id),
+                options
+            );
+
+          this.autocomplete.addListener('place_changed', this.onPlaceChanged);
+        },
+
+        methods: {
+            /**
+             * When a place changed
+             */
+            onPlaceChanged() {
+                let place = this.autocomplete.getPlace();
+
+                if (!place.geometry) {
+                  // User entered the name of a Place that was not suggested and
+                  // pressed the Enter key, or the Place Details request failed.
+                  this.$emit('no-results-found', place, this.id);
+                  return;
+                }
+
+                if (place.address_components !== undefined) {
+                    // return returnData object and PlaceResult object
+                    this.$emit('placechanged', this.formatResult(place), place, this.id);
+
+                    // update autocompleteText then emit change event
+                    this.autocompleteText = document.getElementById(this.id).value
+                    this.onChange()
+                }
+            },
+
+            /**
+             * When the input gets focus
+             */
+            onFocus() {
+              this.biasAutocompleteLocation();
+              this.$emit('focus');
+            },
+
+            /**
+             * When the input loses focus
+             */
+            onBlur() {
+              this.$emit('blur');
+            },
+
+            /**
+             * When the input got changed
+             */
+            onChange() {
+              this.$emit('change', this.autocompleteText);
+            },
+
+            /**
+             * When a key gets pressed
+             * @param  {Event} event A keypress event
+             */
+            onKeyPress(event) {
+              this.$emit('keypress', event);
+            },
+
+            /**
+             * When a keyup occurs
+             * @param  {Event} event A keyup event
+             */
+            onKeyUp(event) {
+              this.$emit('keyup', event);
+            },
+
+            /**
+             * Clear the input
+             */
+            clear() {
+              this.autocompleteText = ''
+            },
+
+            /**
+             * Focus the input
+             */
+            focus() {
+              this.$refs.autocomplete.focus()
+            },
+
+            /**
+             * Blur the input
+             */
+            blur() {
+              this.$refs.autocomplete.blur()
+            },
+
+            /**
+             * Update the value of the input
+             * @param  {String} value
+             */
+            update (value) {
+              this.autocompleteText = value
+            },
+
+            /**
+             * Update the coordinates of the input
+             * @param  {Coordinates} value
+             */
+            updateCoordinates (value) {
+                if (!value && !(value.lat || value.lng)) return;
+                if (!this.geolocation.geocoder) this.geolocation.geocoder = new google.maps.Geocoder();
+                this.geolocation.geocoder.geocode({'location': value}, (results, status) => {
+                    if (status === 'OK') {
+                        results = this.filterGeocodeResultTypes(results);
+                        if (results[0]) {
+                            this.$emit('placechanged', this.formatResult(results[0]), results[0], this.id);
+                            this.update(results[0].formatted_address);
+                        } else {
+                            this.$emit('error', 'no result for provided coordinates');
+                        }
+                    } else {
+                        this.$emit('error', 'error getting address from coords');
+                    }
+                })
+            },
+
+            /**
+             * Update location based on navigator geolocation
+             */
+            geolocate () {
+                this.updateGeolocation ((geolocation, position) => {
+                    this.updateCoordinates(geolocation)
+                })
+            },
+
+            /**
+             * Update internal location from navigator geolocation
+             * @param  {Function} (geolocation, position)
+             */
+            updateGeolocation (callback = null) {
+                if (navigator.geolocation) {
+                    let options = {};
+                    if(this.geolocationOptions) Object.assign(options, this.geolocationOptions);
+                    navigator.geolocation.getCurrentPosition(position => {
+                        let geolocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        this.geolocation.loc = geolocation;
+                        this.geolocation.position = position;
+
+                        if (callback) callback(geolocation, position);
+                    }, err => {
+                        this.$emit('error', 'Cannot get Coordinates from navigator', err);
+                    }, options);
+                }
+            },
+
+
+            // Bias the autocomplete object to the user's geographical location,
+            // as supplied by the browser's 'navigator.geolocation' object.
+            biasAutocompleteLocation () {
+                if (this.enableGeolocation) {
+                    this.updateGeolocation((geolocation, position) => {
+                        let circle = new google.maps.Circle({
+                            center: geolocation,
+                            radius: position.coords.accuracy
+                        });
+                        this.autocomplete.setBounds(circle.getBounds());
+                    })
+                }
+            },
+
+            /**
+             * Format result from Geo google APIs
+             * @param place
+             * @returns {{formatted output}}
+             */
+            formatResult (place) {
+                let returnData = {};
+                for (let i = 0; i < place.address_components.length; i++) {
+                    let addressType = place.address_components[i].types[0];
+
+                    if (ADDRESS_COMPONENTS[addressType]) {
+                        let val = place.address_components[i][ADDRESS_COMPONENTS[addressType]];
+                        returnData[addressType] = val;
+                    }
+                }
+
+                returnData['latitude'] = place.geometry.location.lat();
+                returnData['longitude'] = place.geometry.location.lng();
+                return returnData
+            },
+
+            /**
+             * Extract configured types out of raw result as
+             * Geocode API does not allow to do it
+             * @param results
+             * @returns {GeocoderResult}
+             * @link https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult
+             */
+            filterGeocodeResultTypes (results) {
+                if (!results || !this.types) return results;
+                let output = [];
+                let types = [this.types];
+                if (types.includes('(cities)')) types = types.concat(CITIES_TYPE);
+                if (types.includes('(regions)')) types = types.concat(REGIONS_TYPE);
+
+                for (let r of results) {
+                    for (let t of r.types) {
+                        if (types.includes(t)) {
+                            output.push(r);
+                            break;
+                        }
+                    }
+                }
+                return output;
+            }
+        }
+    });
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue?vue&type=template&id=a72a90ea& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("input", {
+    directives: [
+      {
+        name: "model",
+        rawName: "v-model",
+        value: _vm.autocompleteText,
+        expression: "autocompleteText"
+      }
+    ],
+    ref: "autocomplete",
+    class: _vm.classname,
+    attrs: { type: "text", id: _vm.id, placeholder: _vm.placeholder },
+    domProps: { value: _vm.autocompleteText },
+    on: {
+      focus: function($event) {
+        return _vm.onFocus()
+      },
+      blur: function($event) {
+        return _vm.onBlur()
+      },
+      change: _vm.onChange,
+      keypress: _vm.onKeyPress,
+      keyup: _vm.onKeyUp,
+      input: function($event) {
+        if ($event.target.composing) {
+          return
+        }
+        _vm.autocompleteText = $event.target.value
+      }
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cart.vue?vue&type=template&id=b7f93bea&scoped=true&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Cart.vue?vue&type=template&id=b7f93bea&scoped=true& ***!
@@ -24988,6 +25514,8 @@ var render = function() {
                     staticClass: "w-full px-3",
                     attrs: {
                       label: "Phone",
+                      type: "mask",
+                      mask: ["+#(###) ###-#####"],
                       placeholder: "Enter your phone number",
                       value: _vm.contactInfo.phone,
                       errors: _vm.errors["contact_info.phone"]
@@ -25033,6 +25561,7 @@ var render = function() {
                     staticClass: "w-full px-3",
                     attrs: {
                       label: "Address",
+                      type: "places",
                       placeholder: "Enter your address for delivery",
                       value: _vm.contactInfo.address,
                       errors: _vm.errors["contact_info.address"]
@@ -25184,6 +25713,7 @@ var render = function() {
                   {
                     staticClass:
                       "flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none",
+                    attrs: { disabled: _vm.disabledOrderButton },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
@@ -25217,7 +25747,20 @@ var render = function() {
                     _vm._v(" "),
                     _c("span", { staticClass: "ml-2 mt-5px" }, [
                       _vm._v("ORDER")
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.disabledOrderButton
+                      ? _c("span", [
+                          _c("img", {
+                            attrs: {
+                              src:
+                                "https://samherbert.net/svg-loaders/svg-loaders/puff.svg",
+                              alt: "",
+                              width: "25"
+                            }
+                          })
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -25364,7 +25907,25 @@ var render = function() {
         [_vm._v("\n        " + _vm._s(_vm.label) + "\n    ")]
       ),
       _vm._v(" "),
-      _vm.type === "checkbox"
+      _vm.type === "places"
+        ? _c("vue-google-autocomplete", {
+            class: _vm.defaultClass,
+            attrs: { id: "map", placeholder: "Start typing" },
+            on: { placechanged: _vm.getAddressData }
+          })
+        : _vm.type === "mask"
+        ? _c("the-mask", {
+            class: _vm.defaultClass,
+            attrs: { id: "field-" + _vm._uid, mask: _vm.mask },
+            model: {
+              value: _vm.val,
+              callback: function($$v) {
+                _vm.val = $$v
+              },
+              expression: "val"
+            }
+          })
+        : _vm.type === "checkbox"
         ? _c("input", {
             directives: [
               {
@@ -25374,13 +25935,8 @@ var render = function() {
                 expression: "val"
               }
             ],
-            staticClass:
-              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-            attrs: {
-              id: "field-" + _vm._uid,
-              placeholder: _vm.placeholder,
-              type: "checkbox"
-            },
+            class: _vm.defaultClass,
+            attrs: { placeholder: _vm.placeholder, type: "checkbox" },
             domProps: {
               checked: Array.isArray(_vm.val)
                 ? _vm._i(_vm.val, null) > -1
@@ -25416,13 +25972,8 @@ var render = function() {
                 expression: "val"
               }
             ],
-            staticClass:
-              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-            attrs: {
-              id: "field-" + _vm._uid,
-              placeholder: _vm.placeholder,
-              type: "radio"
-            },
+            class: _vm.defaultClass,
+            attrs: { placeholder: _vm.placeholder, type: "radio" },
             domProps: { checked: _vm._q(_vm.val, null) },
             on: {
               change: function($event) {
@@ -25439,13 +25990,8 @@ var render = function() {
                 expression: "val"
               }
             ],
-            staticClass:
-              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-            attrs: {
-              id: "field-" + _vm._uid,
-              placeholder: _vm.placeholder,
-              type: _vm.type
-            },
+            class: _vm.defaultClass,
+            attrs: { placeholder: _vm.placeholder, type: _vm.type },
             domProps: { value: _vm.val },
             on: {
               input: function($event) {
@@ -25817,6 +26363,17 @@ var VueSweetalert2 = (function () {
 }());
 /* harmony default export */ __webpack_exports__["default"] = (VueSweetalert2);
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/vue-the-mask/dist/vue-the-mask.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vue-the-mask/dist/vue-the-mask.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function(e,t){ true?module.exports=t():undefined})(this,function(){return function(e){function t(r){if(n[r])return n[r].exports;var a=n[r]={i:r,l:!1,exports:{}};return e[r].call(a.exports,a,a.exports,t),a.l=!0,a.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p=".",t(t.s=10)}([function(e,t){e.exports={"#":{pattern:/\d/},X:{pattern:/[0-9a-zA-Z]/},S:{pattern:/[a-zA-Z]/},A:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleUpperCase()}},a:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleLowerCase()}},"!":{escape:!0}}},function(e,t,n){"use strict";function r(e){var t=document.createEvent("Event");return t.initEvent(e,!0,!0),t}var a=n(2),o=n(0),i=n.n(o);t.a=function(e,t){var o=t.value;if((Array.isArray(o)||"string"==typeof o)&&(o={mask:o,tokens:i.a}),"INPUT"!==e.tagName.toLocaleUpperCase()){var u=e.getElementsByTagName("input");if(1!==u.length)throw new Error("v-mask directive requires 1 input, found "+u.length);e=u[0]}e.oninput=function(t){if(t.isTrusted){var i=e.selectionEnd,u=e.value[i-1];for(e.value=n.i(a.a)(e.value,o.mask,!0,o.tokens);i<e.value.length&&e.value.charAt(i-1)!==u;)i++;e===document.activeElement&&(e.setSelectionRange(i,i),setTimeout(function(){e.setSelectionRange(i,i)},0)),e.dispatchEvent(r("input"))}};var s=n.i(a.a)(e.value,o.mask,!0,o.tokens);s!==e.value&&(e.value=s,e.dispatchEvent(r("input")))}},function(e,t,n){"use strict";var r=n(6),a=n(5);t.a=function(e,t){var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=arguments[3];return Array.isArray(t)?n.i(a.a)(r.a,t,i)(e,t,o,i):n.i(r.a)(e,t,o,i)}},function(e,t,n){"use strict";function r(e){e.component(s.a.name,s.a),e.directive("mask",i.a)}Object.defineProperty(t,"__esModule",{value:!0});var a=n(0),o=n.n(a),i=n(1),u=n(7),s=n.n(u);n.d(t,"TheMask",function(){return s.a}),n.d(t,"mask",function(){return i.a}),n.d(t,"tokens",function(){return o.a}),n.d(t,"version",function(){return c});var c="0.11.1";t.default=r,"undefined"!=typeof window&&window.Vue&&window.Vue.use(r)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(1),a=n(0),o=n.n(a),i=n(2);t.default={name:"TheMask",props:{value:[String,Number],mask:{type:[String,Array],required:!0},masked:{type:Boolean,default:!1},tokens:{type:Object,default:function(){return o.a}}},directives:{mask:r.a},data:function(){return{lastValue:null,display:this.value}},watch:{value:function(e){e!==this.lastValue&&(this.display=e)},masked:function(){this.refresh(this.display)}},computed:{config:function(){return{mask:this.mask,tokens:this.tokens,masked:this.masked}}},methods:{onInput:function(e){e.isTrusted||this.refresh(e.target.value)},refresh:function(e){this.display=e;var e=n.i(i.a)(e,this.mask,this.masked,this.tokens);e!==this.lastValue&&(this.lastValue=e,this.$emit("input",e))}}}},function(e,t,n){"use strict";function r(e,t,n){return t=t.sort(function(e,t){return e.length-t.length}),function(r,a){for(var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=0;i<t.length;){var u=t[i];i++;var s=t[i];if(!(s&&e(r,s,!0,n).length>u.length))return e(r,u,o,n)}return""}}t.a=r},function(e,t,n){"use strict";function r(e,t){var n=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],r=arguments[3];e=e||"",t=t||"";for(var a=0,o=0,i="";a<t.length&&o<e.length;){var u=t[a],s=r[u],c=e[o];s&&!s.escape?(s.pattern.test(c)&&(i+=s.transform?s.transform(c):c,a++),o++):(s&&s.escape&&(a++,u=t[a]),n&&(i+=u),c===u&&o++,a++)}for(var f="";a<t.length&&n;){var u=t[a];if(r[u]){f="";break}f+=u,a++}return i+f}t.a=r},function(e,t,n){var r=n(8)(n(4),n(9),null,null);e.exports=r.exports},function(e,t){e.exports=function(e,t,n,r){var a,o=e=e||{},i=typeof e.default;"object"!==i&&"function"!==i||(a=e,o=e.default);var u="function"==typeof o?o.options:o;if(t&&(u.render=t.render,u.staticRenderFns=t.staticRenderFns),n&&(u._scopeId=n),r){var s=u.computed||(u.computed={});Object.keys(r).forEach(function(e){var t=r[e];s[e]=function(){return t}})}return{esModule:a,exports:o,options:u}}},function(e,t){e.exports={render:function(){var e=this,t=e.$createElement;return(e._self._c||t)("input",{directives:[{name:"mask",rawName:"v-mask",value:e.config,expression:"config"}],attrs:{type:"text"},domProps:{value:e.display},on:{input:e.onInput}})},staticRenderFns:[]}},function(e,t,n){e.exports=n(3)}])});
 
 /***/ }),
 
@@ -39196,12 +39753,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/index.js");
 /* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
 /* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_the_mask__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-the-mask */ "./node_modules/vue-the-mask/dist/vue-the-mask.js");
+/* harmony import */ var vue_the_mask__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_the_mask__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_google_autocomplete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-google-autocomplete */ "./node_modules/vue-google-autocomplete/src/VueGoogleAutocomplete.vue");
 
 
 
 
 
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_the_mask__WEBPACK_IMPORTED_MODULE_5___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('vue-google-autocomplete', vue_google_autocomplete__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 

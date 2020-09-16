@@ -38,7 +38,7 @@ class ConfirmOrderRequest extends FormRequest
             'contact_info' => 'required',
             'contact_info.name' => 'required|string',
             'contact_info.phone' => 'required|string',
-            'contact_info.email' => 'required|email',
+            'contact_info.email' => 'required|email:rfc,dns',
             'contact_info.address' => 'required|string'
         ];
     }
