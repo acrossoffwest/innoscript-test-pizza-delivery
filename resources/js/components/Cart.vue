@@ -78,7 +78,7 @@
                     <div class="w-full px-10">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <field
-                                class="w-full px-3 mb-6 md:mb-0"
+                                class="w-full px-3 mb-6"
                                 label="Name"
                                 placeholder="Enter your name"
                                 :value.sync="contactInfo.name"

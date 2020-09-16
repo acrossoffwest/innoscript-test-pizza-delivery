@@ -30913,7 +30913,7 @@ var render = function() {
                 { staticClass: "flex flex-wrap -mx-3 mb-6" },
                 [
                   _c("field", {
-                    staticClass: "w-full px-3 mb-6 md:mb-0",
+                    staticClass: "w-full px-3 mb-6",
                     attrs: {
                       label: "Name",
                       placeholder: "Enter your name",
