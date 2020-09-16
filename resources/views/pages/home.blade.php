@@ -6,7 +6,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-content-center">
         @forelse($type->products as $product)
             <div class="px-4 py-2 m-2">
-                <div :class="`md:flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg overflow-hidden item`">
+                <div :class="`md:flex ${ !$store.getters.items[{!! $product->id !!}] ? 'bg-white' : 'bg-orange-200' } shadow-lg rounded-lg overflow-hidden item`" :key="updateDetailedCounts">
                     <img class="md:hidden w-full" src="{{ $product->image->publicPath }}" alt="">
                     <div class="w-full bg-cover cursor-pointer hidden sm:block" style="background-image: url('{{ $product->image->publicPath }}')" @click="$refs['product-{{ $product->id }}'].$emit('toggle')"></div>
                     <div class="w-full p-4">
@@ -16,10 +16,16 @@
                             {{ str_limit(implode(', ', $product->defaultIngredients->pluck('name')->all()), 15) }}
                         </div>
                         <div class="flex item-center justify-between mt-3">
-                            <h3 class="text-gray-700 font-bold text-xl"><span v-html="costWithCurrencyRate({{ $product->cost }})"></span> <span v-html="getCurrencySymbol($store.getters.currentCurrency)"></span> <span v-if="$store.getters.items[{!! $product->id !!}]"> x <span class="text-orange-600" v-html="$store.getters.items[{!! $product->id !!}].count"></span></span></h3>
+                            <h3 class="text-gray-700 font-bold text-xl">
+                                <span v-html="costWithCurrencyRate({{ $product->cost }})"></span>
+                                    <span v-html="getCurrencySymbol($store.getters.currentCurrency)"></span>
+                                    <span v-if="$store.getters.items['{!! $product->id !!}']"> x
+                                        <span class="text-orange-600" v-html="$store.getters.items['{!! $product->id !!}'].count"></span>
+                                    </span>
+                            </h3>
                             <div>
-                                <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }})">-</button>
-                                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }})">+</button>
+                                <button v-if="$store.getters.items[{!! $product->id !!}]" class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('removeItem', {{ $product->id }}); ++updateDetailedCounts">-</button>
+                                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded" @click="$store.commit('addItem', {{ json_encode($product) }}); ++updateDetailedCounts">+</button>
                             </div>
                         </div>
                     </div>
