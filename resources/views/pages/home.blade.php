@@ -59,4 +59,5 @@
         </div>
         @empty
         @endforelse
+    <float-cart></float-cart>
 @endsection
